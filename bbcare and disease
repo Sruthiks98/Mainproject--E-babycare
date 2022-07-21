@@ -1,0 +1,88 @@
+<?php
+include 'userheader.php';
+?>
+ <?php 
+
+    include ("connect.php");
+    $query = " select * from tbl_babycare ";
+    $result = mysqli_query($con,$query);
+
+?>
+
+        <br><br><br><br>
+                    <div class=""><h3><center>BABYCARE</center></h3>
+                        <table align="center" width="50%"   border="0" class="table table-bordered">
+                            <tr>
+                                <th width> Sl no</th>
+                                <th width> Babycare Name </th>
+                                <th width> Description</th>
+								</tr>				
+                            <?php 
+                                   $count=0; 
+                                    while($row=mysqli_fetch_assoc($result))
+										
+                                    {
+                                        $count++;
+										?>
+                                        
+                                    <tr>
+                                        <td><?php echo $count ?></td>
+                                        <td><?php echo $row['babycare_name'] ?></td>
+										<td><?php echo $row['babycare_des'] ?></td>
+                                    </tr>   
+                             <?php
+									
+									}									
+                            
+                             ?>                                                                   
+                      </table>
+                    </div>
+                </div>
+            </div>
+        </div>
+    
+</body>
+</html
+		
+DISEASE
+
+
+<?php 
+include 'userheader.php';
+include("connect.php");
+$query = " select * from tbl_disease ";
+$result = mysqli_query($con, $query);
+?>
+<br><br><br><br>
+<div class="">
+    <h3>
+        <center>Diseases</center>
+    </h3>
+    <table align="center" width="50%" border="0" class="table table-bordered">
+        <tr>
+            <th width> Sl no</th>
+            <th width> Diseases title </th>
+            <th width> Description</th>
+            <th width> Image</th>
+        </tr>
+        <?php
+        $count = 0;
+        while ($row = mysqli_fetch_assoc($result)) {
+            $count++;
+        ?>
+            <tr>
+                <td><?php echo $count ?></td>
+                <td><?php echo $row['title'] ?></td>
+                <td><?php echo $row['des'] ?></td>
+                <td><img src="./uploads/<?php echo $row['image'] ?>" /></td>
+            </tr>
+        <?php
+        }
+        ?>
+    </table>
+</div>
+</div>
+</div>
+</div>
+</body>
+</html>

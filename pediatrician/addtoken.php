@@ -1,0 +1,93 @@
+<?php
+include ("connect.php");
+include 'userheader.php';
+$uname=$_SESSION['username'];
+?>
+<?php 
+$query = " select * from tbl_pediatrician where ped_email='$uname'";
+    $res = mysqli_query($con,$query);
+    $re=  mysqli_fetch_array($res);
+$uid=$re['ped_id'];
+ $query1 = " select * from tbl_appointment where Pname='$uid' and Status='1'";
+    $result = mysqli_query($con,$query1);
+?>
+ <section class="client_section layout_padding">
+    <div class="container">
+      
+      <div class="heading_container">
+        <h2>
+          View Token
+        </h2>
+      </div>
+     
+         <form class="form" action="" method=post height=50% width=50%>
+			
+			<div class="form-holder">
+				<div style="padding-top: 7px;padding-bottom: 23px;width:25%">
+					<span class="lnr lnr-user"></span>
+					Add Token No(Monday-Friday):<input type="text" name="bnme" id="bnme" class="form-control" title="Name of the baby" placeholder="No. of Token" required>
+				</div>
+			</div>
+			
+			<div>
+				<input type="submit" name="submit" value="Submit"/>
+				
+			</div>
+
+		</form>
+        <?php 
+        if(isset($_POST['submit']))
+{
+          $bnme=$_POST['bnme'];  
+           $sql = "INSERT INTO `tbl_token`(`Token`,`Status`,`pd`)
+	VALUES('$bnme','1','$uname')";
+    mysqli_query($con, $sql);
+    echo '<script>alert("successfully registered...");</script>';
+        }
+        ?>
+        <?php 
+
+ $query1 = " select * from tbl_token where pd='$uname'";
+    $result = mysqli_query($con,$query1);
+?>
+             <table align="center" width="50%"   border="0" class="table table-bordered">
+                            <tr>
+                                <th width> Sl no</th>
+                                <th width> Token </th>
+                             
+                        <th width> Delete</th>
+                                
+								</tr>				
+                            <?php 
+                                   $count=1; 
+                                    while($row=mysqli_fetch_assoc($result))
+										
+                                    {
+                         
+										?>
+                                        
+                                    <tr>
+                                        <td><?php echo $count ?></td>
+					
+				<td><?php echo $row['Token'] ?></td>
+				
+                                <td><a href= "del_token.php?id=<?php echo $row['Id']; ?>" style="background: #ea1d5d ! important;" class="btn btn-success">Delete</a> 
+                                      
+ 
+                                    </tr>   
+                             <?php
+									
+									}
+                                                                        $count++;
+                            
+                             ?>                                                                   
+                      </table>
+    </div>
+  
+  </section>
+
+
+
+
+
+
